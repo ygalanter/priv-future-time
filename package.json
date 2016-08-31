@@ -1,0 +1,292 @@
+{
+    "author": "yuri@galanter.net",
+    "dependencies": {},
+    "keywords": [],
+    "name": "future-time",
+    "pebble": {
+        "capabilities": [
+            "location",
+            "configurable",
+            "health"
+        ],
+        "displayName": "Future Time",
+        "enableMultiJS": true,
+        "messageKeys": {
+            "KEY_BLUETOOTH_ALERT": 2,
+            "KEY_BUY_NOW": 1000,
+            "KEY_CITY_NAME": 9,
+            "KEY_COLOR_SELECTION": 15,
+            "KEY_COLOR_THEME": 999,
+            "KEY_COLOR_THEME_GRADIENT": 1001,
+            "KEY_FORECAST_IO_API": 997,
+            "KEY_INNER_COLOR": 18,
+            "KEY_JSREADY": 6,
+            "KEY_LOCATION_SERVICE": 7,
+            "KEY_MAIN_CLOCK": 0,
+            "KEY_MAIN_COLOR": 19,
+            "KEY_MIDDLE_COLOR": 17,
+            "KEY_OUTER_COLOR": 16,
+            "KEY_SECONDARY_INFO_TYPE": 10,
+            "KEY_SECOND_HAND": 1,
+            "KEY_SHOW_VISUAL_HEALTH_GOAL": 20,
+            "KEY_TEMPERATURE_FORMAT": 8,
+            "KEY_TIME_SEPARATOR": 12,
+            "KEY_WEATHER_CODE": 3,
+            "KEY_WEATHER_INTERVAL": 5,
+            "KEY_WEATHER_TEMP": 4,
+            "KEY_WOEID": 998,
+            "KIEZELPAY_APP_ID": 119526514,
+            "KIEZELPAY_DEVICE_TOKEN": 119526515,
+            "KIEZELPAY_INTERNET_FAIL": 119526520,
+            "KIEZELPAY_PURCHASE_CODE": 119526519,
+            "KIEZELPAY_PURCHASE_STATUS": 119526521,
+            "KIEZELPAY_RANDOM": 119526522,
+            "KIEZELPAY_READY": 119526512,
+            "KIEZELPAY_STATUS_CHECK": 119526513,
+            "KIEZELPAY_STATUS_CHECKSUM": 119526517,
+            "KIEZELPAY_STATUS_RESULT": 119526516,
+            "KIEZELPAY_STATUS_TRIAL_DURATION": 119526518,
+            "KIEZELPAY_STATUS_VALIDITY_PERIOD": 119526523
+        },
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/icon chalk.png",
+                    "menuIcon": true,
+                    "name": "ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Future_Time-PTR-Gradients-Red-Yellow-Grey.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_RED_YELLOW_GREY",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Future_Time-PT-Gradients-Blue-Grey.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_BLUE_GREY",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Future_Time-PTR-Gradients-Blue-Red-Grey.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_BLUE_RED_GREY",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Future_Time-PT-Gradients-Black-Green-Grey.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_BLACK_GREEN_GREY",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Future_Time-PT-Gradients-Pink-Blue-Yellow.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_PINK_BLUE_YELLOW",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Future_Time-PTR-Gradients-Green-Yellow.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_GREEN_YELLOW",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Future_Time-PTR-Gradients-Black-Red-Grey.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_BLACK_RED_GREY",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/meteocons_Yahoo_Order_V3-25x20px-12-23-2015.png",
+                    "name": "METEOICONS",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/gradient_yellow_64.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_YELLOW",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/gradient_red_64.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_RED",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/gradient_pink_64.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_PINK",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/gradient_grey_64.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_GREY",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/gradient_green_64.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_GREEN",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/gradient_blue_64.png",
+                    "memoryFormat": "SmallestPalette",
+                    "name": "GRADIENT_BLUE",
+                    "spaceOptimization": "storage",
+                    "storageFormat": "png",
+                    "targetPlatforms": [
+                        "basalt",
+                        "chalk"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/bt_6x13.png",
+                    "name": "IMG_BLUETOOTH",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "characterRegex": "[0-9]",
+                    "file": "fonts/LiberationSans-Regular.ttf",
+                    "name": "LIBERATION_SANS_REGULAR_11",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "file": "fonts/LiberationSans-Bold.ttf",
+                    "name": "LIBERATION_SANS_BOLD_13",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[0-9A-Z ]",
+                    "file": "fonts/LiberationSans-Bold.ttf",
+                    "name": "LIBERATION_SANS_BOLD_14",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[0-9]",
+                    "file": "fonts/LiberationSans-Bold.ttf",
+                    "name": "LIBERATION_SANS_BOLD_15",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[0-9]",
+                    "file": "fonts/LiberationSans-Bold.ttf",
+                    "name": "LIBERATION_SANS_BOLD_16",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[0-9:.]",
+                    "file": "fonts/LiberationSans-Bold.ttf",
+                    "name": "LIBERATION_SANS_BOLD_25",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[0-9:.]",
+                    "file": "fonts/LiberationSans-Bold.ttf",
+                    "name": "LIBERATION_SANS_BOLD_33",
+                    "targetPlatforms": null,
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk",
+            "diorite"
+        ],
+        "uuid": "332d406c-98c2-4c36-85cb-fc0ef7d444c5",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.53.0"
+}
