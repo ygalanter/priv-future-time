@@ -605,6 +605,9 @@ void main_layer_update(Layer* layer, GContext *ctx){
   
   GRect bounds = layer_get_bounds(layer);
   GPoint center = grect_center_point(&bounds);
+  
+  GRect u_bounds = layer_get_unobstructed_bounds(layer);
+  GPoint u_center = grect_center_point(&u_bounds);
  
   
   time_t now = time(NULL);
@@ -820,7 +823,7 @@ void main_layer_update(Layer* layer, GContext *ctx){
   strftime(s_date, sizeof(s_date), "%d %b", t);
   uppercase(s_date);
   
-   Circ = GRect(bounds.size.w/2 - 51 ,bounds.size.h/2 + PBL_IF_ROUND_ELSE(19, 26), 100, 20);
+   Circ = GRect(bounds.size.w/2 - 51, bounds.size.h/2 + PBL_IF_ROUND_ELSE(19, 26) - (bounds.size.h - u_bounds.size.h)/4, 100, 20);
    graphics_draw_text(ctx, s_date, font_medium, Circ, GTextOverflowModeFill, GTextAlignmentCenter, NULL); 
 
    if (flag_secondary_info_type == SECONDARY_INFO_WEATHER){ //displaying weather
@@ -1028,7 +1031,7 @@ void main_layer_update(Layer* layer, GContext *ctx){
      strftime(s_time, sizeof(s_time), format, t);
      
      // if time begin with space - eliminate it for even centering
-     Circ = GRect(bounds.origin.x-2,bounds.origin.y + 69 , bounds.size.w+4, 70);
+     Circ = GRect(bounds.origin.x-2,bounds.size.h*83/200 - (bounds.size.h - u_bounds.size.h)/8 , bounds.size.w + 4, 70);
      if (s_time[0] == ' ') {
        graphics_draw_text(ctx, &s_time[1], font_large, Circ, GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL); 
      } else {

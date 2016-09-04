@@ -3,7 +3,7 @@ var clayConfig = require('./config');
 var customClay = require('./custom-clay');
 var clay; //constructor moved to JS Ready
 
-var version = "1.53";
+var version = "1.54";
 
 // var YahooWeather = require('YahooWeather.js');
 // var yahooWeather = new YahooWeather();
