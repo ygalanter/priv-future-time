@@ -398,37 +398,6 @@ module.exports = [
       "id": "weatherHeading",
       "defaultValue": "Weather"
     },
-    
-    {
-      "type": "input",                    //forecast.io API KEY
-      "appKey": "KEY_FORECAST_IO_API",
-      "id":  "KEY_FORECAST_IO_API",
-      "defaultValue": "",
-      "label": "Forecast.io API KEY",
-      "description": "Weather powered by forecast.io. Register at https://developer.forecast.io/ to receive API Key. This is a one time procedure, no billing information required there."
-    },
-    
-   {
-      "type": "select",
-      "id": "KEY_WEATHER_INTERVAL",        //Weather update interval
-      "appKey": "KEY_WEATHER_INTERVAL",
-      "defaultValue": "P",
-      "label": "Update Interval",
-      "options": [
-        { 
-          "label": "15 min", 
-          "value": "#" // #35 (- 20) = 15 
-        },
-        { 
-          "label": "30 min", 
-          "value": "2" // #50 (- 20) =  30
-        },
-        { 
-          "label": "1 hour",
-          "value": "P" // #80 (- 20) = 60
-        }
-      ]
-    },
       
     {
       "type": "select",
@@ -447,56 +416,7 @@ module.exports = [
         }
       ]
     },
-      
-    {
-      "type": "select",
-      "id": "KEY_LOCATION_SERVICE",        //weather location: automatic or manual
-      "appKey": "KEY_LOCATION_SERVICE",
-      "defaultValue": "0",
-      "label": "Location",
-      "options": [
-        { 
-          "label": "Automatic", 
-          "value": "0" 
-        },
-        { 
-          "label": "Manual", 
-          "value": "1"
-        }
-      ]
-    },  
     
-    {
-      "type": "input",
-      "appKey": "KEY_WOEID",
-      "id":  "KEY_WOEID",
-      "defaultValue": "",
-      "label": "Location coordinates: latitude,longitude",
-      "description": "You can lookup coordinates using form below"
-    },
-      
-    {
-      "type": "text",
-      "id":  "woeidLookupResult", 
-      "defaultValue": "",
-    },
-      
-    {
-      "type": "input",
-      "id":  "woeidLookupName", 
-      "defaultValue": "",
-      "label": "Location Name",
-      "description": "Enter town or city name"
-    },  
-      
-      
-      {
-        "type": "button",
-        "id":  "woeidLookupButton",
-        "defaultValue": "Coordinates Lookup"
-      }
-
-
       ]
     },
     

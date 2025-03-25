@@ -62,88 +62,18 @@ module.exports = function(minified) {
   }
   
   
-  //location coords lookup
-  function woeidLookup() {
-    
-    $.request('get', 'http://nominatim.openstreetmap.org/search?q=' + Clay.getItemById('woeidLookupName').get() + '&format=json').then(function (str_data) {
-       var result;
-       var resultText='';
-       var data = JSON.parse(str_data);
-      
-       //console.log(data);
-
-       if (data.length === 0) { // no results
-          resultText = '<div>No Results</div>';
-       } else { //looping thru results
-          resultText = '<div><i>Tap location below to get coordinates</i></div><hr/>';
-
-         for (var i = 0; i < data.length; i++) {
-            result = data[i];
-            resultText += '<div onclick = "Clay.getItemById(\'KEY_WOEID\').set(\'' + result.lat + ',' + result.lon + '\');">' +
-                 (result.display_name.length > 37 ? result.display_name.substring(0, 34) + '...' : result.display_name) +
-            '</div>';
-         }
-       }
-      
-       Clay.getItemById('woeidLookupResult').set(resultText);
-       Clay.getItemById('woeidLookupName').set('');
-      
-       });
   
-  }
-  
-  //weather location
-  function changeWeatherLocation() {
-    if (this.get() == '0') { // Automatic
-      Clay.getItemById('KEY_WOEID').hide();
-      Clay.getItemById('woeidLookupResult').hide();
-      Clay.getItemById('woeidLookupName').hide();
-      Clay.getItemById('woeidLookupButton').hide();
-      
-      Clay.getItemById('KEY_WOEID').$manipulatorTarget.set('required', '');
-    } else { // Manual
-      Clay.getItemById('KEY_WOEID').show();
-      Clay.getItemById('woeidLookupResult').show();
-      Clay.getItemById('woeidLookupName').show();
-      Clay.getItemById('woeidLookupButton').show();
-      
-      Clay.getItemById('KEY_WOEID').$manipulatorTarget.set('required', 'required');
-     }
-  }
   
   
   // hides weather section if weather is not selected
   function toggleSecondaryInfo() {
     if (this.get() == "0") { // weather is selected
-      Clay.getItemById('weatherHeading').show();
-      
-      Clay.getItemByAppKey('KEY_LOCATION_SERVICE').show();
-      Clay.getItemByAppKey('KEY_FORECAST_IO_API').show();
-      
+      Clay.getItemById('weatherHeading').show();      
       Clay.getItemByAppKey('KEY_TEMPERATURE_FORMAT').show();
-      Clay.getItemByAppKey('KEY_WEATHER_INTERVAL').show();
-      
-      if (Clay.getItemByAppKey('KEY_LOCATION_SERVICE').get() == "1") { // if we're using custom weather - show custom stuff too
-         Clay.getItemByAppKey('KEY_WOEID').show();
-         Clay.getItemById('woeidLookupResult').show();
-         Clay.getItemById('woeidLookupName').show();
-         Clay.getItemById('woeidLookupButton').show();
-      }
-      
+
     } else { // weather is not selected
       Clay.getItemById('weatherHeading').hide();
-      Clay.getItemByAppKey('KEY_WEATHER_INTERVAL').hide();
       Clay.getItemByAppKey('KEY_TEMPERATURE_FORMAT').hide();
-      
-      Clay.getItemByAppKey('KEY_LOCATION_SERVICE').hide();
-      Clay.getItemByAppKey('KEY_FORECAST_IO_API').hide();
-      
-      if (Clay.getItemByAppKey('KEY_LOCATION_SERVICE').get() == "1") { // if we're using custom weather - hide custom stuff too
-         Clay.getItemByAppKey('KEY_WOEID').hide();
-         Clay.getItemById('woeidLookupResult').hide();
-         Clay.getItemById('woeidLookupName').hide();
-         Clay.getItemById('woeidLookupButton').hide();
-      }
       
     }
   }
@@ -206,11 +136,7 @@ module.exports = function(minified) {
     Clay.getItemByAppKey('KEY_INNER_COLOR').on('change', resetColorTheme);
     Clay.getItemByAppKey('KEY_MAIN_COLOR').on('change', resetColorTheme); 
     
-    
-    // weather location service
-    var weatherLocation = Clay.getItemByAppKey('KEY_LOCATION_SERVICE');
-    changeWeatherLocation.call(weatherLocation);
-    weatherLocation.on('change', changeWeatherLocation);
+
     
     // weather secondary info
     var secondaryInfo = Clay.getItemByAppKey('KEY_SECONDARY_INFO_TYPE');
@@ -222,9 +148,6 @@ module.exports = function(minified) {
     
     toggleSecondaryInfo.call(secondaryInfo);
     secondaryInfo.on('change', toggleSecondaryInfo);
-    
-    // on clicking WOEID lookup button - perform WOEID lookup
-    Clay.getItemById('woeidLookupButton').on('click', woeidLookup);
     
     // on aplite hide visual health goal
     if(!Clay.meta.activeWatchInfo || Clay.meta.activeWatchInfo.platform === 'aplite') {

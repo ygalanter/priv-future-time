@@ -106,7 +106,7 @@ void weather_updare_retry(void *context) {
 static void update_weather() {
   // Only grab the weather if we can talk to phone AND weather is enabled AND currently message is not being processed and JS on phone is ready
   if (flag_locationService != LOCATION_DISABLED && bluetooth_connection_service_peek() && !flag_messaging_is_busy && flag_js_is_ready && flag_secondary_info_type == SECONDARY_INFO_WEATHER){
-   //APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'update_weather()' about to request weather from the phone ***");
+   APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'update_weather()' about to request weather from the phone ***");
     
     //need to have some data - sending dummy
     DictionaryIterator *iter;
@@ -118,7 +118,7 @@ static void update_weather() {
     
      flag_messaging_is_busy = true;
      int msg_result = app_message_outbox_send(); // need to assign result for successfull call
-    //APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'update_weather()' message sent and result code = %d***", msg_result);
+    APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'update_weather()' message sent and result code = %d***", msg_result);
      
       if (msg_result == APP_MSG_BUSY) { // on initial load could be busy due to Keizel communication
         flag_messaging_is_busy = false;
@@ -130,7 +130,7 @@ static void update_weather() {
 
 // showing temp
 static void set_temperature(int w_current) {
-   //APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'show_temperature()'; TEMP in Pebble: %d", w_current);
+   APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'show_temperature()'; TEMP in Pebble: %d", w_current);
     snprintf(s_weather_temp, sizeof(s_weather_temp), "%i\u00B0", w_current);
     layer_mark_dirty(s_main_layer);
 }
@@ -140,7 +140,7 @@ static void set_weather_icon(int w_icon) {
 
   if (w_icon < 0 || w_icon > 47) {w_icon = 48;}  // in case icon not available - show "N/A" icon
   
- //APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'set_weather_icon'; Icon IS: %d", w_icon);
+ APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'set_weather_icon'; Icon IS: %d", w_icon);
   
   if (meteoicon_current)  gbitmap_destroy(meteoicon_current);
   Circ = GRect(0, ICON_HEIGHT*w_icon, ICON_WIDTH, ICON_HEIGHT);
@@ -155,12 +155,12 @@ static void set_weather_icon(int w_icon) {
 // creates main background from gradient array and sub-bitmaps for icons/numbers backgrounds
 static void create_gradient_background(int bg_id) {
   
-   //APP_LOG(APP_LOG_LEVEL_INFO, "Inside create_gradient_background before main, Heap = %d", (int)heap_bytes_free());
+   APP_LOG(APP_LOG_LEVEL_INFO, "Inside create_gradient_background before main, Heap = %d", (int)heap_bytes_free());
   
   // main bg
   gradient_bitmap = gbitmap_create_with_resource(bg_id);
   
-  //APP_LOG(APP_LOG_LEVEL_INFO, "Inside create_gradient_background after main, Heap = %d", (int)heap_bytes_free());
+  APP_LOG(APP_LOG_LEVEL_INFO, "Inside create_gradient_background after main, Heap = %d", (int)heap_bytes_free());
   
   //icon/text bg
   
@@ -189,23 +189,23 @@ static void create_gradient_background(int bg_id) {
   
   #endif
   
-   //APP_LOG(APP_LOG_LEVEL_INFO, "Inside create_gradient_background Aftee Sub, Sub = %d", (int)heap_bytes_free());
+   APP_LOG(APP_LOG_LEVEL_INFO, "Inside create_gradient_background Aftee Sub, Sub = %d", (int)heap_bytes_free());
 }
 #endif
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
   flag_messaging_is_busy = false;
- //APP_LOG(APP_LOG_LEVEL_ERROR, "____Message dropped!");
+ APP_LOG(APP_LOG_LEVEL_ERROR, "____Message dropped!");
 }
 
 static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
   flag_messaging_is_busy = false;
- //APP_LOG(APP_LOG_LEVEL_ERROR, "____Outbox send failed!");
+ APP_LOG(APP_LOG_LEVEL_ERROR, "____Outbox send failed!");
 }
 
 static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
   flag_messaging_is_busy = false;
- //APP_LOG(APP_LOG_LEVEL_INFO, "_____Outbox send success!");
+ APP_LOG(APP_LOG_LEVEL_INFO, "_____Outbox send success!");
 } 
 
 // handle configuration change
@@ -244,7 +244,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       case KEY_JSREADY:
           // JS ready lets get the weather
           if (t->value->int16) {
-           //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' message 'JS is ready' received !");
+           APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' message 'JS is ready' received !");
             flag_js_is_ready = true;
             needs_weather = 1;
           }
@@ -257,7 +257,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
                flag_main_clock = t->value->uint8;
                needs_bluetooth = 1; //- so the icon can be destroyed and recreated to be colored properly
                needs_rerender = 1;
-              //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' KEY_MAIN_CLOCK = %d", flag_main_clock);
+              APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' KEY_MAIN_CLOCK = %d", flag_main_clock);
              }  
            break;
       case KEY_SECOND_HAND:
@@ -274,14 +274,14 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
               flag_color_selection = t->value->uint8;
               needs_rerender = 1;
               needs_bluetooth = 1; //- so the icon can be destroyed and recreated to be colored properly
-             //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' KEY_COLOR_SELECTION = %d", flag_color_selection);
+             APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' KEY_COLOR_SELECTION = %d", flag_color_selection);
             }  
           break;
       case KEY_OUTER_COLOR:
            //if (!gcolor_equal(outer_color, GColorFromHEX(t->value->int32))){
              persist_write_int(KEY_OUTER_COLOR, t->value->int32);
              outer_color = GColorFromHEX(t->value->int32);
-            //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' OUTER_COLOR = %d", outer_color.argb );
+            APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' OUTER_COLOR = %d", outer_color.argb );
              needs_rerender = 1;
            //}  
            break;      
@@ -306,7 +306,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
              
              persist_write_int(KEY_MAIN_COLOR, t->value->int32);
              main_color  = GColorFromHEX(t->value->int32);
-             //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' MAIN_COLOR = %d", main_color.argb );
+             APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' MAIN_COLOR = %d", main_color.argb );
              needs_rerender = 1;
          //  }  
           
@@ -334,7 +334,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
              persist_write_int(KEY_WEATHER_INTERVAL, t->value->uint8 - 20);
              flag_weatherInterval = t->value->uint8 - 20;
              needs_weather = 1;
-            //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' Weather interval set to interval to %d min", flag_weatherInterval);
+            APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' Weather interval set to interval to %d min", flag_weatherInterval);
            }
            break;
         
@@ -342,7 +342,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
          if (flag_temperatureFormat != t->value->uint8) {
            persist_write_int(KEY_TEMPERATURE_FORMAT, t->value->uint8);
            flag_temperatureFormat = t->value->uint8;
-          //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching temp format");
+          APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching temp format");
            needs_weather = 1;
          }
          break;
@@ -351,7 +351,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
          if (flag_locationService != t->value->uint8) {
            persist_write_int(KEY_LOCATION_SERVICE, t->value->uint8);
            flag_locationService = t->value->uint8;
-          //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching KEY_LOCATION_SERVICEt");
+          APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching KEY_LOCATION_SERVICEt");
            needs_weather = 1;
          }
          break;
@@ -360,7 +360,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
          if (flag_woeid != t->value->int32) {
            persist_write_int(KEY_WOEID, t->value->int32);
            flag_woeid = t->value->int32;
-          //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching KEY_WOEID");
+          APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching KEY_WOEID");
            needs_weather = 1;
          }
          break;
@@ -387,7 +387,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
          if (flag_show_visual_health_goal != t->value->uint8) {
            persist_write_int(KEY_SHOW_VISUAL_HEALTH_GOAL, t->value->uint8);
            flag_show_visual_health_goal = t->value->uint8;
-          //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching KEY_WOEID");
+          APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'inbox_received_callback()' switching KEY_WOEID");
            needs_rerender = 1;
          }
          break;
@@ -460,7 +460,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 void bluetooth_handler(bool connected) {
   
   if (connected && is_bluetooth_buzz_enabled){ // on bluetooth reconnect - update weather (only if we're not calling this on purpose, otherwise battery will drain in infinite loop)
-   //APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'bluetooth_handler()' about to call 'update_weather();");
+   APP_LOG(APP_LOG_LEVEL_INFO, "***** I am inside of 'bluetooth_handler()' about to call 'update_weather();");
     update_weather();
   } 
   
@@ -508,13 +508,13 @@ void bluetooth_handler(bool connected) {
 static void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
  
   if (!(tick_time->tm_min % flag_weatherInterval) && (tick_time->tm_sec == 0)) { // on configured weather interval change - update the weather
-       //APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'tick_handler()' about to call 'update_weather();' at minute %d min on %d interval", tick_time->tm_min, flag_weatherInterval);
+       APP_LOG(APP_LOG_LEVEL_INFO, "**** I am inside 'tick_handler()' about to call 'update_weather();' at minute %d min on %d interval", tick_time->tm_min, flag_weatherInterval);
         update_weather();
   } 
   
   layer_mark_dirty(s_main_layer);
   
-  //APP_LOG(APP_LOG_LEVEL_DEBUG, "TICK-TOCK: Free heap = %d", (int)heap_bytes_free());
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "TICK-TOCK: Free heap = %d", (int)heap_bytes_free());
   
 }
 
@@ -1009,7 +1009,7 @@ void main_layer_update(Layer* layer, GContext *ctx){
         Circ2 = GRect(bounds.size.w/2 - (battery_percent == 100? 16 : 14), bounds.origin.y + 18, (battery_percent == 100? 32 : 28), 13);
         graphics_draw_text_with_background(ctx, s_battery, font_inter_b, Circ, Circ2);
       } else { // gradient bg
-        //APP_LOG(APP_LOG_LEVEL_DEBUG, "Drawing gradieng bg bcuz flag_theme_gradient = %d", flag_theme_gradient);
+        APP_LOG(APP_LOG_LEVEL_DEBUG, "Drawing gradieng bg bcuz flag_theme_gradient = %d", flag_theme_gradient);
         Circ =  GRect(bounds.size.w/2 - 16, bounds.origin.y + 18, 32, 13);
         graphics_draw_bitmap_in_rect(ctx, grad_dig_batt_bg, Circ);
         Circ = GRect(bounds.size.w/2 - 16, bounds.origin.y + 17, 32, 15);
