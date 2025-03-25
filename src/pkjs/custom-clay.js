@@ -168,29 +168,7 @@ module.exports = function(minified) {
   
 
   Clay.on(Clay.EVENTS.AFTER_BUILD, function() {
-    
-   // initially hiding BUY NOW 
-   var buynow = Clay.getItemByAppKey('KEY_BUY_NOW');
-   buynow.set(0); 
-   buynow.disable();
-   buynow.hide(); 
-
-    
-    //detecting whether "BUY NOW" section should be shown
-    $.request('get', "https://kiezelpay.com/api/v1/status?appid=" + Clay.meta.userData.appid + "&accounttoken=" + Clay.meta.userData.accounttoken).then(function (str_data) {
-      
-       console.log(str_data);
-      
-        var data = JSON.parse(str_data);
-      
-        // if user is unlicensed - show BUY NOW
-        if (data.status != "licensed") { 
-            buynow.enable();
-            buynow.show(); 
-        }
-      
-    });
-    
+        
     // clock appearance
     var clockAppearance = Clay.getItemByAppKey('KEY_MAIN_CLOCK');
     toggleClockAppearance.call(clockAppearance);

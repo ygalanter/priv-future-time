@@ -3,9 +3,6 @@
 #include "utils.h"
 #include "gbitmap_color_palette_manipulator.h"
 #include "health.h"
-#include "kiezelpay.h"
-
-#define KIEZEL_ENABLE 1
 
 //layout
 Window *s_window;
@@ -37,46 +34,6 @@ GBitmap *grad_dig_bt_bg, *grad_dig_batt_bg;
 GBitmap *grad_an_bt_bg, *grad_an_batt_bg, *grad_an_3, *grad_an_6, *grad_an_9, *grad_an_12 ;
 
 GRect Circ, Circ2;
-
-
-
-static bool kiezelpay_event_callback(kiezelpay_event e, void* extra_data) {
-  switch (e) {
-    case KIEZELPAY_ERROR:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_ERROR");
-      break;
-    case KIEZELPAY_BLUETOOTH_UNAVAILABLE:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_BLUETOOTH_UNAVAILABLE");
-      break;
-    case KIEZELPAY_INTERNET_UNAVAILABLE:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_INTERNET_UNAVAILABLE");
-      break;
-#if KIEZELPAY_DISABLE_TIME_TRIAL == 0
-    case KIEZELPAY_TRIAL_STARTED:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_TRIAL_STARTED");
-      break;
-#endif
-    case KIEZELPAY_TRIAL_ENDED:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_TRIAL_ENDED");
-      break;
-    case KIEZELPAY_CODE_AVAILABLE:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_CODE_AVAILABLE");
-      break;
-    case KIEZELPAY_PURCHASE_STARTED:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_PURCHASE_STARTED");
-      break;
-    case KIEZELPAY_LICENSED:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(): KIEZELPAY_LICENSED");
-      break;
-    default:
-     //APP_LOG(APP_LOG_LEVEL_DEBUG, "kiezelpay_event_callback(); unknown event");
-      break;
-  };
-  
-  //return true;   //prevent the kiezelpay lib from showing messages by signaling it that we handled the event ourselves
-  return false;    //let the kiezelpay lib handle the event
-}
-
 
 // raised from health.c "health_handler" event handler
 
@@ -292,14 +249,6 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
             needs_weather = 1;
           }
           break;
-      
-      // *********  end trial, buy now
-      case KEY_BUY_NOW:
-        if (t->value->uint8 == BUY_NOW_YES) {
-          kiezelpay_start_purchase();
-        }
-        break;
-      
       
       // *********  config data keys
       case KEY_MAIN_CLOCK:
@@ -1187,28 +1136,7 @@ void handle_init(void) {
   
 
   window_stack_push(s_window, true);
-  
-  #if KIEZEL_ENABLE
-  
-  /* begin KiezelPay init */
-  
-  kiezelpay_settings.messaging_inbox_size = 500;    //when receiving larger appmessages then the size kiezelpay uses
-  kiezelpay_settings.messaging_outbox_size = 500;   //when sending larger appmessages then the size kiezelpay uses
-  
-  kiezelpay_settings.on_kiezelpay_event = kiezelpay_event_callback;
-  
-  //receive your own appmessages, will be forwarded by KiezelPay lib
-  kiezelpay_settings.on_inbox_received = inbox_received_callback;
-  kiezelpay_settings.on_inbox_dropped = inbox_dropped_callback;
-  kiezelpay_settings.on_outbox_failed = outbox_failed_callback;
-  kiezelpay_settings.on_outbox_sent = outbox_sent_callback;
-  
-  kiezelpay_init();
-  /* end KiezelPay init */
-  
-  #else
 
-    // Register callbacks (original pre-Kiezel)
     app_message_register_inbox_received(inbox_received_callback);
     app_message_register_inbox_dropped(inbox_dropped_callback);
     app_message_register_outbox_failed(outbox_failed_callback);
@@ -1216,9 +1144,6 @@ void handle_init(void) {
   
     // Open AppMessage
     app_message_open(500, 500); 
-  
-  #endif
-  
   
   
   battery_state_service_subscribe(battery_handler);
@@ -1243,7 +1168,6 @@ void handle_init(void) {
 
 void handle_deinit(void) {
   
-  kiezelpay_deinit();
   battery_state_service_unsubscribe();
   bluetooth_connection_service_unsubscribe();
   tick_timer_service_unsubscribe();

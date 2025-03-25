@@ -13,7 +13,6 @@
         "enableMultiJS": true,
         "messageKeys": {
             "KEY_BLUETOOTH_ALERT": 2,
-            "KEY_BUY_NOW": 1000,
             "KEY_CITY_NAME": 9,
             "KEY_COLOR_SELECTION": 15,
             "KEY_COLOR_THEME": 999,
@@ -34,19 +33,7 @@
             "KEY_WEATHER_CODE": 3,
             "KEY_WEATHER_INTERVAL": 5,
             "KEY_WEATHER_TEMP": 4,
-            "KEY_WOEID": 998,
-            "KIEZELPAY_APP_ID": 119526514,
-            "KIEZELPAY_DEVICE_TOKEN": 119526515,
-            "KIEZELPAY_INTERNET_FAIL": 119526520,
-            "KIEZELPAY_PURCHASE_CODE": 119526519,
-            "KIEZELPAY_PURCHASE_STATUS": 119526521,
-            "KIEZELPAY_RANDOM": 119526522,
-            "KIEZELPAY_READY": 119526512,
-            "KIEZELPAY_STATUS_CHECK": 119526513,
-            "KIEZELPAY_STATUS_CHECKSUM": 119526517,
-            "KIEZELPAY_STATUS_RESULT": 119526516,
-            "KIEZELPAY_STATUS_TRIAL_DURATION": 119526518,
-            "KIEZELPAY_STATUS_VALIDITY_PERIOD": 119526523
+            "KEY_WOEID": 998
         },
         "projectType": "native",
         "resources": {
@@ -77,8 +64,10 @@
                     "spaceOptimization": "storage",
                     "storageFormat": "png",
                     "targetPlatforms": [
-                        "basalt",
-                        "chalk"
+                        "aplite",
+                        "chalk",
+                        "diorite",
+                        "basalt"
                     ],
                     "type": "bitmap"
                 },

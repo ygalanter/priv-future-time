@@ -7,24 +7,6 @@ module.exports = [
     "size": 3
   },
   
-  //***************** END TRIAAL, BUY NOW *****************
-    {
-    "type": "section",
-    "items": [
-  
-        {
-            "type": "toggle",
-            "id": "KEY_BUY_NOW",  // To end trial earlier and initiate purchase righ away
-            "appKey": "KEY_BUY_NOW",
-            "defaultValue": 0,
-            "label": "END TRIAL, BUY NOW",
-            "description": "Toggle to end your trial initiate purchase. After saving config follow instructions on your watch"
-        }
-      
-     ]
-    },
-  
-  
   //***************** APPEARANCE *****************
   {
     "type": "section",
