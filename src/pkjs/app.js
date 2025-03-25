@@ -3,7 +3,13 @@ var clayConfig = require('./config');
 var customClay = require('./custom-clay');
 var clay; //constructor moved to JS Ready
 
-var version = "1.54";
+var version = "1.55";
+
+// var YahooWeather = require('YahooWeather.js');
+// var yahooWeather = new YahooWeather();
+var OpenMetroWeather = require('./OpenMetroWeather.js');
+var openMetroWeather = new OpenMetroWeather();
+
 
 var xhrRequest = function (url, type, callback, errorCallback, timeout) {
   try {
@@ -34,7 +40,7 @@ function getPlatform() {
   }
 }
 
-
+Pebble.addEventListener("appmessage", onAppMessageReceived);
 
 function onAppMessageReceived(appMsg) {
     //console.log ("\n++++ I am inside of 'Pebble.addEventListener('appmessage'): AppMessage received");
@@ -43,20 +49,11 @@ function onAppMessageReceived(appMsg) {
     var claySettings = JSON.parse(localStorage.getItem('clay-settings'));
     
     //passing config (0 or 1; F or C) to weather
-    forecastIoWeather.temperatureFormat = claySettings? parseInt(claySettings.KEY_TEMPERATURE_FORMAT) : 0;
+    openMetroWeather.temperatureFormat = claySettings? parseInt(claySettings.KEY_TEMPERATURE_FORMAT) : 0;
     //console.log(forecastIoWeather.temperatureFormat);
-  
-    //passing Forecast IO API KEY
-    forecastIoWeather.apiKey = claySettings? claySettings.KEY_FORECAST_IO_API : '';
-    //console.log(forecastIoWeather.apiKey);
     
+    openMetroWeather.getLocation();  // for automatic location - get 
     
-    if ((claySettings? parseInt(claySettings.KEY_LOCATION_SERVICE) : 0) == 1) { // for manual location - request weather right away
-        forecastIoWeather.getWeather(claySettings.KEY_WOEID); //passing "lat,long" via woeid kwy
-    } else 
-    {
-       forecastIoWeather.getLocation();  // for automatic location - get 
-    }
 }
 
 // Listen for when the watchface is opened
